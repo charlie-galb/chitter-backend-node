@@ -12,10 +12,11 @@ const getAllUsers = async (req, res) => {
 // create user
 const createUser = async (req, res) => {
     try {
-        const { handle, password } = req.body;
+        const { user } = req.body;
+        console.log(user)
         const newUser = await pool.query(
-            "INSERT INTO users (handle, password) VALUES($1, $2) RETURNING *",
-            [handle, password]
+            "INSERT INTO users (handle, password) VALUES($1, $2) RETURNING user_id, handle",
+            [user.handle, user.password]
         );
         res.json(newUser.rows[0])
     } catch (error) {
