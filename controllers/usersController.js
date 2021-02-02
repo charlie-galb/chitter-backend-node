@@ -1,34 +1,31 @@
-const pool = require("../db");
+const userQueries = require('../queries/userQueries')
 
-// get users
+
 const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await pool.query("SELECT * FROM users");
-        res.json(allUsers.rows)
+        const allUsers = await userQueries.getAllUsers();
+        res.status(200).json(allUsers.rows)
     } catch (error) {
         console.error(error.message)
     }
 };
-// create user
+
 const createUser = async (req, res) => {
     try {
         const { user } = req.body;
         console.log(user)
-        const newUser = await pool.query(
-            "INSERT INTO users (handle, password) VALUES($1, $2) RETURNING user_id, handle",
-            [user.handle, user.password]
-        );
-        res.json(newUser.rows[0])
+        const newUser = await userQueries.createUser(user)
+        res.status(201).json(newUser.rows[0])
     } catch (error) {
         console.error(error.message)
     }
 };
-// delete user
+
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await pool.query("DELETE FROM users WHERE user_id = $1", [id])
-        res.json("User was successfully deleted")
+        const deleteUser = await userQueries.deleteUser(id)
+        res.status(200).send('User successfully deleted')
     } catch (error) {
         console.error(error.message)
     }
