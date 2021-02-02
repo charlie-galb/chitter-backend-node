@@ -11,4 +11,4 @@ This is a RESTful back end social media API designed to serve my pre-existing [f
 
 ## Models and Diagrams  
 
-[Entity relationship](https://i.ibb.co/LQCmCJw/Chitter-entity-relationship.jpg)
+![Entity relationship](https://i.ibb.co/LQCmCJw/Chitter-entity-relationship.jpg)
