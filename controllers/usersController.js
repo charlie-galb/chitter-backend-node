@@ -13,7 +13,6 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const { user } = req.body;
-        console.log(user)
         const newUser = await userQueries.createUser(user)
         res.status(201).json(newUser.rows[0])
     } catch (error) {
