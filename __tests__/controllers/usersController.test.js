@@ -1,13 +1,11 @@
 const { mockRequest, mockResponse } = require('../../utils/interceptor')
-jest.mock('../../queries/userQueries');
 const userQueries = require('../../queries/userQueries')
 const controller = require('../../controllers/usersController.js')
 
-beforeEach( async () => {
-	
-})
+jest.mock('../../queries/userQueries');
 
-afterEach( async () => {
+
+afterAll(() => {
 	jest.unmock('../../queries/userQueries');
 })
 
