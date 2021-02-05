@@ -1,5 +1,5 @@
 const pool = require("../../db");
-const { createUser, getAllUsers } = require("../../queries/userQueries");
+const { createUser, getAllUsers, deleteUser } = require("../../queries/userQueries");
 const userQueries = require('../../queries/userQueries')
 
 beforeAll( async () => {
@@ -32,5 +32,12 @@ describe('getAllUsers', () => {
     test("returns all users' handles and IDs as objects in an array", async () => {
         result = await getAllUsers()
         expect(result.rows).toEqual([{user_id: 1, handle: "Test Person"}])
+    })
+})
+
+describe('deleteUser', () => {
+    test("Deletes specified user", async () => {
+        result = await deleteUser()
+        expect(result.rows).toEqual([])
     })
 })
