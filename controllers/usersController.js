@@ -1,6 +1,4 @@
 const userQueries = require('../queries/userQueries');
-const { mockNext } = require('../utils/interceptor');
-
 
 const getAllUsers = async (req, res) => {
     try {
