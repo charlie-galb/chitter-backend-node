@@ -1,7 +1,7 @@
 const pool = require("../db");
 
 const getAllUsers = () => {
-    return pool.query("SELECT * FROM users");
+    return pool.query("SELECT user_id, handle FROM users");
 };
 
 const createUser = (userData) => {
