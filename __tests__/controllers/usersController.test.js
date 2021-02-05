@@ -75,6 +75,6 @@ describe("Delete user", () => {
 
         expect(res.status).toHaveBeenCalledWith(200)
         expect(userQueries.deleteUser).toHaveBeenCalledTimes(1)
-        expect(res.send).toHaveBeenCalledWith('User was successfully deleted');
+        expect(res.send).toHaveBeenCalledWith('User successfully deleted');
     })
 })
