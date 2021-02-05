@@ -12,18 +12,16 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
 
     const { user } = req.body;
-    console.log(user)
 
     if (!user.handle || !user.password) {
         return res.status(400).send('Missing required fields: handle or password');
       }
 
     try {
-        console.log('Are we getting to this point?')
         const newUser = await userQueries.createUser(user)
         res.status(201).json(newUser.rows[0])
     } catch (error) {
-        console.log(error.message)
+       
         if (error.message === 'duplicate key value violates unique constraint "users_handle_key"') {
             return res.status(409).send("Handle already taken")
         } else {
