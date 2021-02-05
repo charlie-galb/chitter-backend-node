@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
     } catch (error) {
         console.log(error.message)
         if (error.message === 'duplicate key value violates unique constraint "users_handle_key"') {
-            return res.status(404).send("Handle already taken")
+            return res.status(409).send("Handle already taken")
         } else {
             return res.status(500).json({
                 status: 'error',

@@ -32,7 +32,7 @@ describe("POST /users", () => {
         .post("/users")
         .send(userData)
         .then((response) => {
-            expect(response.status).toBe(404)
+            expect(response.status).toBe(409)
             expect(response.text).toBe("Handle already taken")
          })
     })
