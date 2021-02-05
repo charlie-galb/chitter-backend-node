@@ -1,4 +1,5 @@
-const userQueries = require('../queries/userQueries')
+const userQueries = require('../queries/userQueries');
+const { mockNext } = require('../utils/interceptor');
 
 
 const getAllUsers = async (req, res) => {
@@ -11,12 +12,28 @@ const getAllUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+
+    const { user } = req.body;
+    console.log(user)
+
+    if (!user.handle || !user.password) {
+        return res.status(400).send('Missing required fields: handle or password');
+      }
+
     try {
-        const { user } = req.body;
+        console.log('Are we getting to this point?')
         const newUser = await userQueries.createUser(user)
         res.status(201).json(newUser.rows[0])
     } catch (error) {
-        console.error(error.message)
+        console.log(error.message)
+        if (error.message === 'duplicate key value violates unique constraint "users_handle_key"') {
+            return res.status(404).send("Handle already taken")
+        } else {
+            return res.status(500).json({
+                status: 'error',
+                message: 'Internal Server Error'
+              });
+        }
     }
 };
 
