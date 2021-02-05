@@ -27,3 +27,10 @@ describe('createUser', () => {
         }
     })
 })
+
+describe('getAllUsers', () => {
+    test("returns all users' handles and IDs as objects in an array", async () => {
+        result = await getAllUsers()
+        expect(result.rows).toEqual([{user_id: 1, handle: "Test Person"}])
+    })
+})
