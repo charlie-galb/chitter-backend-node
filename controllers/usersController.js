@@ -1,4 +1,5 @@
 const userQueries = require('../queries/userQueries');
+const bcrypt = require('bcrypt');
 
 const getAllUsers = async (req, res) => {
     try {
@@ -12,13 +13,15 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
 
     const { user } = req.body;
+    const hash = bcrypt.hashSync(user.password, saltRounds = 10)
+    
 
     if (!user.handle || !user.password) {
         return res.status(400).send('Missing required fields: handle or password');
       }
 
     try {
-        const newUser = await userQueries.createUser(user)
+        const newUser = await userQueries.createUser(user.handle, hash)
         res.status(201).json(newUser.rows[0])
     } catch (error) {
        
