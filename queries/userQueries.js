@@ -4,10 +4,10 @@ const getAllUsers = () => {
     return pool.query("SELECT user_id, handle FROM users");
 };
 
-const createUser = (userData) => {
+const createUser = (handle, password) => {
     return pool.query(
-    "INSERT INTO users (handle, password) VALUES($1, $2) RETURNING user_id, handle",
-    [userData.handle, userData.password]
+        "INSERT INTO users (handle, password) VALUES($1, $2) RETURNING user_id, handle",
+        [handle, password]
     )
 };
 
