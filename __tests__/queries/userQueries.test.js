@@ -15,13 +15,13 @@ afterAll( async () => {
 describe('createUser', () => {
     test("when handle is not already in use it inserts user data into db and returns id and handle", async () => {
         const testUser = {handle: 'Test Person', password: 'password'}
-        result = await createUser(testUser)
+        result = await createUser(testUser.handle, testUser.password)
         expect(result.rows[0]).toEqual({user_id: 1, handle: 'Test Person'})
     })
     test("when handle is already in use it throws an error", async () => {
         const testUser = {handle: 'Test Person', password: 'password'}
         try {
-            await createUser(testUser)
+            await createUser(testUser.handle, testUser.password)
         } catch(error) {
             expect(error.message).toEqual('duplicate key value violates unique constraint "users_handle_key"')
         }
