@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const getAllUsers = async (req, res) => {
     try {
         const allUsers = await userQueries.getAllUsers();
-        res.status(200).json(allUsers.rows)
+        res.status(200).json(allUsers)
     } catch (error) {
         console.error(error.message)
     }
@@ -13,19 +13,19 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
 
     const { user } = req.body;
-    const hash = bcrypt.hashSync(user.password, saltRounds = 10)
-    
 
     if (!user.handle || !user.password) {
         return res.status(400).send('Missing required fields: handle or password');
-      }
+    }
+
+    user.password = bcrypt.hashSync(user.password, saltRounds = 10)
 
     try {
-        const newUser = await userQueries.createUser(user.handle, hash)
-        res.status(201).json(newUser.rows[0])
+        const newUser = await userQueries.createUser(user)
+        res.status(201).json(newUser)
     } catch (error) {
-       
-        if (error.message === 'duplicate key value violates unique constraint "users_handle_key"') {
+       console.log(error.message)
+        if (error.message.includes("duplicate key value violates unique constraint")) {
             return res.status(409).send("Handle already taken")
         } else {
             return res.status(500).json({
