@@ -1,4 +1,4 @@
-const { mockRequest, mockResponse, mockNext } = require('../../utils/interceptor')
+const { mockRequest, mockResponse, mockNext } = require('../../utils/testing/interceptor')
 const userQueries = require('../../queries/userQueries')
 const controller = require('../../controllers/usersController.js')
 
@@ -62,7 +62,7 @@ describe("Get all users", () => {
 
         expect(res.status).toHaveBeenCalledWith(200)
         expect(userQueries.getAllUsers).toHaveBeenCalledTimes(1)
-        expect(res.json).toHaveBeenCalledWith([{id: 1, handle: "Test Person"}]);
+        expect(res.json).toHaveBeenCalledWith({rows:[{id: 1, handle: "Test Person"}]});
     })
 })
 
