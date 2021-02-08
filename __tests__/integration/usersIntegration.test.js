@@ -1,15 +1,15 @@
 const createServer = require("../../createServer")
 const request = require('supertest');
-const pool = require("../../db");
+const knex = require('../../db/db');
 
 beforeAll( async () => {
-	return await pool.query(
-        "CREATE TABLE users(user_id SERIAL PRIMARY KEY, handle VARCHAR (50) UNIQUE NOT NULL, password VARCHAR (100) NOT NULL, session_key VARCHAR(50), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);"
-        );
+	return knex.migrate.latest();
 })
 
 afterAll( async () => {
-	return await pool.query("DROP TABLE users;");
+	return knex.migrate
+      .rollback()
+      .then(() => knex.destroy());
 })
 
 const app = createServer()
@@ -22,7 +22,7 @@ describe("POST /users", () => {
         .send(userData)
         .expect(201)
         .then((response) => {
-            expect(response.body.user_id).toBe(1)
+            expect(response.body.id).toBe(1)
             expect(response.body.handle).toBe("kay")
          })
     })
@@ -45,7 +45,7 @@ describe("GET /users", () => {
         .expect(200)
         .then((response) => {
             expect(response.body.length).toBe(1)
-            expect(response.body[0].user_id).toBe(1)
+            expect(response.body[0].id).toBe(1)
             expect(response.body[0].handle).toBe("kay")
          })
     })
