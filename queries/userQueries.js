@@ -23,6 +23,14 @@ const deleteUser = (id) => {
       .delete();
 };
 
+const findUser = (user) => {
+  return db
+      .select("id", "handle", "password")
+      .from("users")
+      .where({ handle: user.handle })
+      .then(rows => rows[0]);
+}
+
 module.exports = {
-    getAllUsers, createUser, deleteUser
+    getAllUsers, createUser, deleteUser, findUser
 }
