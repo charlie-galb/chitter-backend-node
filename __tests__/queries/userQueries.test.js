@@ -1,5 +1,5 @@
 const db = require("../../db/db");
-const { createUser, getAllUsers, deleteUser } = require("../../queries/userQueries");
+const { createUser, getAllUsers, deleteUser, findUser } = require("../../queries/userQueries");
 const knex = require('../../db/db');
 
 beforeAll( async () => {
@@ -32,6 +32,14 @@ describe('getAllUsers', () => {
     test("returns all users' handles and IDs as objects in an array", async () => {
         result = await getAllUsers()
         expect(result).toEqual([{id: 1, handle: "Test Person"}])
+    })
+})
+
+describe('findUser', () => {
+    test("returns a single user that matches the handle and password provided", async () => {
+        const testUser = {handle: 'Test Person', password: 'password'}
+        result = await findUser(testUser)
+        expect(result).toEqual({id: 1, handle: "Test Person", password: "password"})
     })
 })
 
