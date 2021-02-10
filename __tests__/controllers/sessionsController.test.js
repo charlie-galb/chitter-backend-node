@@ -20,6 +20,7 @@ describe("Create new session", () => {
         await controller.createNewSession(req, res);
 
         expect(userQueries.findUser).toHaveBeenCalledTimes(1)
+        expect(userQueries.storeAuthToken).toHaveBeenCalledTimes(1)
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalled()
     })
