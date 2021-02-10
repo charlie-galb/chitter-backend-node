@@ -31,6 +31,14 @@ const findUser = (user) => {
       .then(rows => rows[0]);
 }
 
+const storeAuthToken = (handle, authToken) => {
+  return db("users")
+      .where({ handle: handle })
+      .update({auth_token: authToken})
+      .returning(["id", "handle"])
+      .then(rows => rows[0]);
+}
+
 module.exports = {
-    getAllUsers, createUser, deleteUser, findUser
+    getAllUsers, createUser, deleteUser, findUser, storeAuthToken
 }
