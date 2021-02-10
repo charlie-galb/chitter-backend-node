@@ -1,5 +1,5 @@
 const db = require("../../db/db");
-const { createUser, getAllUsers, deleteUser, findUser } = require("../../queries/userQueries");
+const { createUser, getAllUsers, deleteUser, findUser, storeAuthToken } = require("../../queries/userQueries");
 const knex = require('../../db/db');
 
 beforeAll( async () => {
@@ -40,6 +40,14 @@ describe('findUser', () => {
         const testUser = {handle: 'Test Person', password: 'password'}
         result = await findUser(testUser)
         expect(result).toEqual({id: 1, handle: "Test Person", password: "password"})
+    })
+})
+
+describe('storeAuthToken', () => {
+    test("stores user's JWT refresh token", async () => {
+        const authToken = "ajfk34tgjdvij56"
+        result = await storeAuthToken('Test Person', authToken)
+        expect(result).toEqual({"handle": "Test Person", "id": 1})
     })
 })
 
