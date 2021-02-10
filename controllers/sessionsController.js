@@ -1,4 +1,4 @@
-const { findUser } = require('../queries/userQueries');
+const { findUser, storeAuthToken } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
@@ -14,7 +14,7 @@ const createNewSession = async (req, res) => {
         const dbUser = await findUser(session)
 
         if(dbUser == undefined){
-            res.status(401).json({
+            return res.status(401).json({
                error: "No user by that name"
             })
          }
@@ -27,16 +27,23 @@ const createNewSession = async (req, res) => {
                   error: "Unauthorized Access!"
                })
             }else{
-               token = jwt.sign(session.handle, process.env.ACCESS_TOKEN_SECRET)
-               res.status(200).json({token})
+               const payload = {handle: session.handle}
+               const accessToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+                  algorithm: "HS256",
+                  expiresIn: process.env.REFRESH_TOKEN_LIFE
+              })
+               const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+                  algorithm: "HS256",
+                  expiresIn: process.env.REFRESH_TOKEN_LIFE
+              })
+          
+               storeAuthToken(session.handle, refreshToken)
+              
+               res.status(200).json({accessToken})
             }
          })
     } catch (error) {
-       console.log(error.message)
-        return res.status(500).json({
-            status: 'error',
-            message: 'Internal Server Error'
-        })
+        return res.status(500).json({status: "error:", message: 'Internal Server Error'})
     }
 };
 
