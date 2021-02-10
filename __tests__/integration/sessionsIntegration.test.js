@@ -23,7 +23,27 @@ describe("POST /sessions", () => {
         .send(userData)
         .expect(200)
         .then((response) => {
-            expect(response.body).toHaveProperty("token")
+            expect(response.body).toHaveProperty("accessToken")
+         })
+    })
+    test("when user info is missing it returns 401 status and message: 'No user by that name'", async () => {
+        const userData = {session: {handle:"Petunia", password:"password"}}
+        await request(app)
+        .post("/sessions")
+        .send(userData)
+        .expect(401)
+        .then((response) => {
+            expect(response.body.error).toEqual("No user by that name")
+         })
+    })
+    test("when user does not match the db it returns 401 status and message: 'Unauthorized Access!'", async () => {
+        const userData = {session: {handle:"nigel", password:"wrongPassword"}}
+        await request(app)
+        .post("/sessions")
+        .send(userData)
+        .expect(401)
+        .then((response) => {
+            expect(response.body.error).toEqual("Unauthorized Access!")
          })
     })
 })
