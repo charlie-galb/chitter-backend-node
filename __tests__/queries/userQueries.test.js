@@ -1,5 +1,4 @@
-const db = require("../../db/db");
-const { createUser, getAllUsers, deleteUser, findUser, storeAuthToken } = require("../../queries/userQueries");
+const { createUser, getAllUsers, deleteUser, findUser, storeAuthToken } = require("../../src/queries/userQueries");
 const knex = require('../../db/db');
 
 beforeAll( async () => {

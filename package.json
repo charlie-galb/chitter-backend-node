@@ -2,7 +2,7 @@
   "name": "chitter-backend-node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src",
   "scripts": {
     "test": "jest --runInBand",
     "start": "node index",

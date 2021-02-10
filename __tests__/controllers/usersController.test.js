@@ -1,8 +1,8 @@
-const { mockRequest, mockResponse, mockNext } = require('../../utils/testing/interceptor')
-const userQueries = require('../../queries/userQueries')
-const controller = require('../../controllers/usersController.js')
+const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
+const userQueries = require('../../src/queries/userQueries')
+const controller = require('../../src/controllers/usersController.js')
 
-jest.mock('../../queries/userQueries');
+jest.mock('../../src/queries/userQueries');
 
 
 afterEach(() => {

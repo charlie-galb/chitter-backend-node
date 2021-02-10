@@ -1,4 +1,4 @@
-const createServer = require("../../createServer")
+const createServer = require("../../src/createServer")
 const request = require('supertest');
 const knex = require('../../db/db');
 
