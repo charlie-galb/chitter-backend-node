@@ -16,7 +16,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: './db/migrations'
     },
     seeds: {
       directory: './db/seeds/test'
@@ -38,7 +38,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: 'db/migrations'
+      directory: './db/migrations'
     },
     seeds: {
       directory: './db/seeds/test'
