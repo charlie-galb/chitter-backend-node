@@ -1,6 +1,7 @@
 const { findUser, storeAuthToken } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+const path = require('path');
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
