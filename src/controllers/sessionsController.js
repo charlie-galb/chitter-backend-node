@@ -2,6 +2,8 @@ const { findUser, storeAuthToken } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+
 const createNewSession = async (req, res) => {
 
     const { session } = req.body;
