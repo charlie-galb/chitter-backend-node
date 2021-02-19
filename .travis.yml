@@ -5,9 +5,9 @@ services:
   - postgresql
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
     - DB_NAME=chitter_test
-    - DB_USER=runon
+    - DB_USER=user
 before_script:
   - psql --command="CREATE USER ${DB_USER};"
   - psql --command="CREATE DATABASE ${DB_NAME} WITH OWNER = ${DB_USER};"
