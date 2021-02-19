@@ -1,8 +1,7 @@
 const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
 const userQueries = require('../../src/queries/userQueries')
 const controller = require('../../src/controllers/sessionsController.js')
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+require('dotenv').config()
 
 jest.mock('../../src/queries/userQueries');
 
