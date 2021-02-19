@@ -10,10 +10,8 @@ const verify = (req, res, next) => {
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
         if(err){
-            console.log(err)
             return res.status(401).json({status: "error:", message: 'Unauthorized Access!'})
         }else{
-            console.log(decoded)
             next()
         }
     })
