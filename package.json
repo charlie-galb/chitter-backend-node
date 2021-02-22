@@ -5,8 +5,8 @@
   "main": "src",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "node src/index",
+    "dev": "nodemon src/index"
   },
   "author": "Charlie",
   "license": "ISC",
