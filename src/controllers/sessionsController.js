@@ -30,7 +30,7 @@ const createNewSession = async (req, res) => {
                const payload = {handle: session.handle}
                const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
                   algorithm: "HS256",
-                  expiresIn: 60 * 60
+                  expiresIn: process.env.ACCESS_TOKEN_LIFE
               })
                const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
                   algorithm: "HS256",
