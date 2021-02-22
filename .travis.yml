@@ -1,9 +1,7 @@
 language: node_js
 node_js:
   - "node"
-branches:
-  only:
-    - main
+branch: main
 services:
   - postgresql
 env:
