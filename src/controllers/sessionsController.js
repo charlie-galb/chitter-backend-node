@@ -34,11 +34,11 @@ const createNewSession = async (req, res) => {
               })
                const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
                   algorithm: "HS256",
-                  expiresIn: process.env.REFRESH_TOKEN_LIFE
+                  expiresIn: 60
               })
-          
-               storeAuthToken(session.handle, refreshToken)
               
+               storeAuthToken(session.handle, refreshToken)
+               
                res.status(200).json({accessToken})
             }
          })
