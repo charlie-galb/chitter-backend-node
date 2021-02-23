@@ -15,7 +15,6 @@ before_script:
   - psql --command="CREATE USER ${DB_USER};"
   - psql --command="CREATE DATABASE chitter_test WITH OWNER = ${DB_USER};"
   - psql --command="CREATE DATABASE chitter_prod WITH OWNER = ${DB_USER};"
-  - knex migrate:latest
 deploy:
   provider: heroku
   api_key:
