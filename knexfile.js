@@ -55,7 +55,8 @@ module.exports = {
     seeds: {
       directory: './db/seeds/production'
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    ssl: true
   }
 
 };
