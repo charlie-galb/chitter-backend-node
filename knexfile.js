@@ -48,9 +48,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: {
-      database: 'chitter_prod',
-    },
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: './db/migrations'
     },
