@@ -1,5 +1,6 @@
 const pg = require('pg');
-pg.defaults.ssl = true;
+
+if (process.env.NODE_ENV === "production") pg.defaults.ssl = true;
 
 module.exports = {
 
