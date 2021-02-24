@@ -1,6 +1,6 @@
 const pg = require('pg');
 
-if (process.env.NODE_ENV === "production") pg.defaults.ssl = true;
+if (process.env.NODE_ENV === "production") pg.defaults.ssl = { rejectUnauthorized: false };
 
 module.exports = {
 
@@ -51,7 +51,6 @@ module.exports = {
   production: {
     client: 'pg',
     connection: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
     migrations: {
       directory: './db/migrations'
     },
