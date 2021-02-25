@@ -9,7 +9,7 @@ afterEach(() => {
 	jest.clearAllMocks();
 })
 
-describe("Get all users", () => {
+describe("getAllPeeps", () => {
     test("if the request is good, it should call the correct db query, return 200 status and an array of user objects", async () => {
         let req = mockRequest();
         const res = mockResponse();
@@ -19,5 +19,19 @@ describe("Get all users", () => {
         expect(res.status).toHaveBeenCalledWith(200)
         expect(peepQueries.getAllPeeps).toHaveBeenCalledTimes(1)
         expect(res.json).toHaveBeenCalledWith([{"body": "mock peep", "id": 1, "user_id": 1}]);
+    })
+})
+
+describe("createPeep", () => {
+    test("if the request is good, it should call the correct db query, return 201 status and new peep object", async () => {
+        let req = mockRequest();
+        req.body = {peep: {user_id:"1", body:"Not a real peep"}};
+        const res = mockResponse();
+    
+        await controller.createPeep(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(201)
+        expect(peepQueries.createPeep).toHaveBeenCalledTimes(1)
+        expect(res.json).toHaveBeenCalled;
     })
 })
