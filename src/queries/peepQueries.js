@@ -7,6 +7,17 @@ const getAllPeeps = () => {
       .then(rows => rows);
 };
 
+const createPeep = (newPeep) => {
+    return db
+      .insert(newPeep)
+      .into("peeps")
+      .returning("*")
+      .then(rows => {
+        return rows[0];
+      });
+};
+
 module.exports = {
-    getAllPeeps
+    getAllPeeps,
+    createPeep
 }
