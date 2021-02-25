@@ -9,6 +9,18 @@ const getAllPeeps = async (req, res) => {
     }
 };
 
+const createPeep = async (req, res) => {
+
+    const { peep } = req.body
+    try {
+        const newPeep = await peepQueries.createPeep(peep)
+        res.status(201).json(newPeep)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
-    getAllPeeps
+    getAllPeeps,
+    createPeep
 }
