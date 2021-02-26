@@ -20,7 +20,7 @@ describe('getAllPeeps', () => {
     })
 })
 
-describe('createPeep', () => {
+describe('savePeep', () => {
     test("inserts a new peep into the database", async () => {
         mockPeepObj = {user_id: 1, body: "creating a new test peep"}
         await savePeep(mockPeepObj)
