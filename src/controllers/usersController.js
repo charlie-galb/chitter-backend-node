@@ -1,4 +1,4 @@
-const { retrieveUsers, saveUser, deleteUserFromDb } = require('../queries/userQueries');
+const { retrieveUsers, saveUser, deleteUserById } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 
 const getAllUsers = async (req, res) => {
@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await deleteUserFromDb(id)
+        const deleteUser = await deleteUserById(id)
         res.status(200).send('User successfully deleted')
     } catch (error) {
         console.error(error.message)
