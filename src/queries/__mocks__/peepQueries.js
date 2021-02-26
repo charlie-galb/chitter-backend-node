@@ -1,7 +1,7 @@
-const getAllPeeps = jest.fn().mockReturnValue([{id: 1, body: "mock peep", user_id: 1}]);
-const createPeep = jest.fn()
+const retrievePeeps = jest.fn().mockReturnValue([{id: 1, body: "mock peep", user_id: 1}]);
+const savePeep = jest.fn()
    
 module.exports = {
-    getAllPeeps,
-    createPeep 
+    retrievePeeps,
+    savePeep 
 }
