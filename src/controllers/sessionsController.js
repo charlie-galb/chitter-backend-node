@@ -1,17 +1,17 @@
-const { findUser, storeAuthToken } = require('../queries/userQueries');
+const { findUserByHandle, storeAuthToken } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 
 const createNewSession = async (req, res) => {
 
-    const { session } = req.body;
+    const { handle, password } = req.body.session;
 
-    if (!session.handle || !session.password) {
+    if (!handle || !password) {
         return res.status(400).send('Missing required fields: handle or password');
     }
 
     try {
-        const dbUser = await findUser(session)
+        const dbUser = await findUserByHandle(handle)
 
         if(dbUser == undefined){
             return res.status(401).json({
@@ -20,14 +20,14 @@ const createNewSession = async (req, res) => {
          }
 
         return bcrypt
-         .compare(session.password, dbUser.password)
+         .compare(password, dbUser.password)
          .then(isAuthenticated => {
             if(!isAuthenticated){
                res.status(401).json({
                   error: "Unauthorized Access!"
                })
             }else{
-               const payload = {handle: session.handle}
+               const payload = {handle: handle}
                const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
                   algorithm: "HS256",
                   expiresIn: process.env.ACCESS_TOKEN_LIFE
@@ -37,7 +37,7 @@ const createNewSession = async (req, res) => {
                   expiresIn: process.env.REFRESH_TOKEN_LIFE
               })
               
-               storeAuthToken(session.handle, refreshToken)
+               storeAuthToken(handle, refreshToken)
                
                res.status(200).json({accessToken})
             }
