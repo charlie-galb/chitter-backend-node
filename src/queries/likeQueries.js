@@ -10,6 +10,22 @@ const saveLike = (peepId, userId) => {
       });
 };
 
+const deleteLikeByForeignKeys = (peepId, userId) => {
+  return db("likes")
+      .where({ peep_id: peepId, user_id: userId})
+      .delete();
+}
+
+const findLikeByForeignKeys = (peepId, userId) => {
+  return db
+      .select("*")
+      .from("likes")
+      .where({ user_id: userId, peep_id: peepId })
+      .then(rows => rows[0]);
+}
+
 module.exports = {
-    saveLike
+    saveLike,
+    deleteLikeByForeignKeys,
+    findLikeByForeignKeys
 }
