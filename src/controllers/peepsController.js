@@ -1,11 +1,11 @@
-const { savePeep, retrievePeeps } = require('../queries/peepQueries');
+const { savePeep, retrievePeeps, deletePeepById } = require('../queries/peepQueries');
 
 const getAllPeeps = async (req, res) => {
     try {
         const allPeeps = await retrievePeeps();
         res.status(200).json(allPeeps)
     } catch (error) {
-        console.error(error.message)
+        console.error(error)
     }
 };
 
@@ -20,7 +20,18 @@ const createPeep = async (req, res) => {
     }
 }
 
+const deletePeep = async (req, res) => {
+    const { id } = req.params
+    try {
+        await deletePeepById(id)
+        res.status(200).send("Peep successfully deleted")
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
     getAllPeeps,
-    createPeep
+    createPeep,
+    deletePeep
 }
