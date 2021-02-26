@@ -11,14 +11,14 @@ afterAll( async () => {
       .then(() => knex.destroy());
 })
 
+const testUser = {handle: 'Test Person', password: 'password'}
+
 describe('saveUser', () => {
     test("when handle is not already in use it inserts user data into db and returns id and handle", async () => {
-        const testUser = {handle: 'Test Person', password: 'password'}
         result = await saveUser(testUser)
         expect(result).toEqual({id: 1, handle: 'Test Person'})
     })
     test("when handle is already in use it throws an error", async () => {
-        const testUser = {handle: 'Test Person', password: 'password'}
         try {
             await saveUser(testUser)
         } catch(error) {
@@ -36,7 +36,6 @@ describe('retrieveUsers', () => {
 
 describe('findUser', () => {
     test("returns a single user that matches the handle and password provided", async () => {
-        const testUser = {handle: 'Test Person', password: 'password'}
         result = await findUser(testUser)
         expect(result).toEqual({id: 1, handle: "Test Person", password: "password"})
     })
