@@ -1,4 +1,4 @@
-const { retrievePeeps, savePeep } = require("../../src/queries/peepQueries");
+const { retrievePeeps, savePeep, deletePeepById } = require("../../src/queries/peepQueries");
 const knex = require('../../db/db');
 
 beforeAll( async () => {
@@ -27,5 +27,13 @@ describe('createPeep', () => {
         result = await retrievePeeps()
         expect(result.length).toEqual(4)
         expect(result[3].body).toEqual("creating a new test peep")
+    })
+})
+
+describe('deletePeepById', () => {
+    test("removes a peep from the database", async () => {
+        await deletePeepById(1)
+        result = await retrievePeeps()
+        expect(result[0].body).not.toEqual("Test peep 1")
     })
 })
