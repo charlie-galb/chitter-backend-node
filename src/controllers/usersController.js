@@ -1,9 +1,9 @@
-const userQueries = require('../queries/userQueries');
+const { retrieveUsers, saveUser, deleteUserFromDb } = require('../queries/userQueries');
 const bcrypt = require('bcrypt');
 
 const getAllUsers = async (req, res) => {
     try {
-        const allUsers = await userQueries.getAllUsers();
+        const allUsers = await retrieveUsers();
         res.status(200).json(allUsers)
     } catch (error) {
         console.error(error.message)
@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
     user.password = bcrypt.hashSync(user.password, saltRounds = 10)
 
     try {
-        const newUser = await userQueries.createUser(user)
+        const newUser = await saveUser(user)
         res.status(201).json(newUser)
     } catch (error) {
        console.log(error.message)
@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
 const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleteUser = await userQueries.deleteUser(id)
+        const deleteUser = await deleteUserFromDb(id)
         res.status(200).send('User successfully deleted')
     } catch (error) {
         console.error(error.message)
