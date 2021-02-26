@@ -1,6 +1,6 @@
 const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
-const peepQueries = require('../../src/queries/peepQueries')
-const controller = require('../../src/controllers/peepsController.js')
+const { retrievePeeps, savePeep } = require('../../src/queries/peepQueries')
+const { getAllPeeps, createPeep } = require('../../src/controllers/peepsController.js')
 
 jest.mock('../../src/queries/peepQueries');
 
@@ -14,10 +14,10 @@ describe("getAllPeeps", () => {
         let req = mockRequest();
         const res = mockResponse();
     
-        await controller.getAllPeeps(req, res);
+        await getAllPeeps(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(peepQueries.getAllPeeps).toHaveBeenCalledTimes(1)
+        expect(retrievePeeps).toHaveBeenCalledTimes(1)
         expect(res.json).toHaveBeenCalledWith([{"body": "mock peep", "id": 1, "user_id": 1}]);
     })
 })
@@ -28,10 +28,10 @@ describe("createPeep", () => {
         req.body = {peep: {user_id:"1", body:"Not a real peep"}};
         const res = mockResponse();
     
-        await controller.createPeep(req, res);
+        await createPeep(req, res);
 
         expect(res.status).toHaveBeenCalledWith(201)
-        expect(peepQueries.createPeep).toHaveBeenCalledTimes(1)
+        expect(savePeep).toHaveBeenCalledTimes(1)
         expect(res.json).toHaveBeenCalled;
     })
 })
