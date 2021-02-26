@@ -1,6 +1,6 @@
 const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
-const { retrievePeeps, savePeep } = require('../../src/queries/peepQueries')
-const { getAllPeeps, createPeep } = require('../../src/controllers/peepsController.js')
+const { retrievePeeps, savePeep, deletePeepById } = require('../../src/queries/peepQueries')
+const { getAllPeeps, createPeep, deletePeep } = require('../../src/controllers/peepsController.js')
 
 jest.mock('../../src/queries/peepQueries');
 
@@ -33,5 +33,20 @@ describe("createPeep", () => {
         expect(res.status).toHaveBeenCalledWith(201)
         expect(savePeep).toHaveBeenCalledTimes(1)
         expect(res.json).toHaveBeenCalled;
+    })
+})
+
+describe("deletePeep", () => {
+    test("if the request is good, it should call the correct db query, return 200 status and send a confirmation message", async () => {
+        let req = mockRequest();
+        req.params = {id: 1}
+        const res = mockResponse();
+    
+        await deletePeep(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(200)
+        expect(deletePeepById).toHaveBeenCalledTimes(1)
+        expect(deletePeepById).toHaveBeenCalledWith(1)
+        expect(res.send).toHaveBeenCalledWith("Peep successfully deleted");
     })
 })
