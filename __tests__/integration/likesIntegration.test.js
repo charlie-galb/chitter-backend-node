@@ -21,7 +21,6 @@ const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {algorithm: "HS
 
 describe("PUT /peeps/1/likes/3", () => {
     test("if request is good, returns 200 status and newly created like", async () => {
-        const like = {peep: {user_id:"1", body:"Not a real peep"}}
         await request(app)
         .put("/peeps/1/likes/3")
         .set('authorization', token)
@@ -30,6 +29,18 @@ describe("PUT /peeps/1/likes/3", () => {
             expect(response.body.user_id).toEqual(1)
             expect(response.body.peep_id).toEqual(3)
             expect(response.body.id).toEqual(4)
+         })
+    })
+})
+
+describe("DELETE /peeps/1/likes/2", () => {
+    test("if request is good, returns 200 status and a confirmation message", async () => {
+        await request(app)
+        .delete("/peeps/1/likes/2")
+        .set('authorization', token)
+        .expect(200)
+        .then((response) => {
+            expect(response.text).toEqual("Like successfully deleted")
          })
     })
 })
