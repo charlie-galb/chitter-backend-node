@@ -17,7 +17,14 @@ const savePeep = (newPeep) => {
       });
 };
 
+const deletePeepById = (id) => {
+  return db("peeps")
+    .where({ id })
+    .delete();
+};
+
 module.exports = {
     retrievePeeps,
-    savePeep
+    savePeep,
+    deletePeepById
 }
