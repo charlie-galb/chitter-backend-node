@@ -6,12 +6,12 @@ const retrieveUsers = jest.fn().mockReturnValue([{rows:[{id: 1, handle: "Test Pe
 
 const saveUser = jest.fn().mockReturnValue({id: 1, handle: "Test Person"});
 
-const deleteUserFromDb = jest.fn();
+const deleteUserById = jest.fn();
 
-const findUser = jest.fn().mockReturnValue({id: 1, handle: "Test Person", password: hashed_password});
+const findUserByHandle = jest.fn().mockReturnValue({id: 1, handle: "Test Person", password: hashed_password});
 
 const storeAuthToken = jest.fn();
 
 module.exports = {
-    retrieveUsers, saveUser, deleteUserFromDb, findUser, storeAuthToken 
+    retrieveUsers, saveUser, deleteUserById, findUserByHandle, storeAuthToken 
 }
