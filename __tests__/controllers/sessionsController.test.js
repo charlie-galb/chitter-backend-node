@@ -1,5 +1,5 @@
 const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
-const { storeAuthToken, findUser } = require('../../src/queries/userQueries')
+const { storeAuthToken, findUserByHandle } = require('../../src/queries/userQueries')
 const { createNewSession } = require('../../src/controllers/sessionsController.js')
 
 jest.mock('../../src/queries/userQueries');
@@ -17,7 +17,7 @@ describe("Create new session", () => {
     
         await createNewSession(req, res);
 
-        expect(findUser).toHaveBeenCalledTimes(1)
+        expect(findUserByHandle).toHaveBeenCalledTimes(1)
         expect(storeAuthToken).toHaveBeenCalledTimes(1)
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalled()
