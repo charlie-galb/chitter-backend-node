@@ -17,17 +17,17 @@ const saveUser = (newUser) => {
       });
 };
 
-const deleteUserFromDb = (id) => {
+const deleteUserById = (id) => {
     return db("users")
       .where({ id })
       .delete();
 };
 
-const findUser = (user) => {
+const findUserByHandle = (handle) => {
   return db
       .select("id", "handle", "password")
       .from("users")
-      .where({ handle: user.handle })
+      .where({ handle: handle })
       .then(rows => rows[0]);
 }
 
@@ -40,5 +40,5 @@ const storeAuthToken = (handle, authToken) => {
 }
 
 module.exports = {
-    retrieveUsers, saveUser, deleteUserFromDb, findUser, storeAuthToken
+    retrieveUsers, saveUser, deleteUserById, findUserByHandle, storeAuthToken
 }
