@@ -1,5 +1,5 @@
 const { mockRequest, mockResponse, mockNext } = require('../../src/utils/testing/interceptor')
-const { saveUser, retrieveUsers, deleteUserFromDb } = require('../../src/queries/userQueries')
+const { saveUser, retrieveUsers, deleteUserById } = require('../../src/queries/userQueries')
 const { createUser, getAllUsers, deleteUser } = require('../../src/controllers/usersController.js')
 
 jest.mock('../../src/queries/userQueries');
@@ -74,7 +74,7 @@ describe("Delete user", () => {
         await deleteUser(req, res);
 
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(deleteUserFromDb).toHaveBeenCalledTimes(1)
+        expect(deleteUserById).toHaveBeenCalledTimes(1)
         expect(res.send).toHaveBeenCalledWith('User successfully deleted');
     })
 })
