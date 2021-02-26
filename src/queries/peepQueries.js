@@ -1,13 +1,13 @@
 const db = require("../../db/db");
 
-const getAllPeeps = () => {
+const retrievePeeps = () => {
     return db
       .select("*")
       .from("peeps")
       .then(rows => rows);
 };
 
-const createPeep = (newPeep) => {
+const savePeep = (newPeep) => {
     return db
       .insert(newPeep)
       .into("peeps")
@@ -18,6 +18,6 @@ const createPeep = (newPeep) => {
 };
 
 module.exports = {
-    getAllPeeps,
-    createPeep
+    retrievePeeps,
+    savePeep
 }

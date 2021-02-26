@@ -1,13 +1,13 @@
 const db = require("../../db/db");
 
-const getAllUsers = () => {
+const retrieveUsers = () => {
     return db
       .select("id", "handle")
       .from("users")
       .then(rows => rows);
 };
 
-const createUser = (newUser) => {
+const saveUser = (newUser) => {
     return db
       .insert(newUser)
       .into("users")
@@ -17,7 +17,7 @@ const createUser = (newUser) => {
       });
 };
 
-const deleteUser = (id) => {
+const deleteUserFromDb = (id) => {
     return db("users")
       .where({ id })
       .delete();
@@ -40,5 +40,5 @@ const storeAuthToken = (handle, authToken) => {
 }
 
 module.exports = {
-    getAllUsers, createUser, deleteUser, findUser, storeAuthToken
+    retrieveUsers, saveUser, deleteUserFromDb, findUser, storeAuthToken
 }
