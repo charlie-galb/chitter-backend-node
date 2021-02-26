@@ -14,7 +14,7 @@ afterAll( async () => {
 
 describe('retrieveUsers', () => {
     test("returns all users' handles and IDs as objects in an array", async () => {
-        result = await retrieveUsers()
+        const result = await retrieveUsers()
         expect(result.length).toEqual(3)
         expect(result[0].handle).toEqual("nigel")
     })
@@ -23,7 +23,7 @@ describe('retrieveUsers', () => {
 describe('saveUser', () => {
     test("when handle is not already in use it inserts user data into db and returns id and handle", async () => {
         const testUser = {id: 4, handle: 'Mona', password: 'password'}
-        result = await saveUser(testUser)
+        const result = await saveUser(testUser)
         expect(result).toEqual({id: 4, handle: 'Mona'})
     })
     test("when handle is already in use it throws an error", async () => {
@@ -38,7 +38,7 @@ describe('saveUser', () => {
 
 describe('findUserByHandle', () => {
     test("returns a single user that matches the handle and password provided", async () => {
-        result = await findUserByHandle("nigel")
+        const result = await findUserByHandle("nigel")
         expect(result.id).toEqual(1)
         expect(result.handle).toEqual("nigel")
     })
