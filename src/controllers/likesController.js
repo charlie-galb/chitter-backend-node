@@ -1,4 +1,4 @@
-const { saveLike } = require('../queries/likeQueries');
+const { saveLike, deleteLikeByForeignKeys } = require('../queries/likeQueries');
 
 const createLike = async (req, res) => {
 
@@ -11,6 +11,17 @@ const createLike = async (req, res) => {
     }
 };
 
+const deleteLike = async (req, res) => {
+    const { peep_id, user_id } = req.params
+    try {
+        await deleteLikeByForeignKeys(peep_id, user_id)
+        res.status(200).send("Like successfully deleted")
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 module.exports = {
-    createLike
+    createLike,
+    deleteLike
 }
