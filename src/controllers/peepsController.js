@@ -3,6 +3,13 @@ const { savePeep, retrievePeeps, deletePeepById } = require('../queries/peepQuer
 const getAllPeeps = async (req, res) => {
     try {
         const allPeeps = await retrievePeeps();
+        allPeeps.map( (peep) => {
+            if (peep.likes === null) {
+                peep.likes = []
+            } else {
+                peep.likes = peep.likes
+            }
+        })
         res.status(200).json(allPeeps)
     } catch (error) {
         console.error(error)
