@@ -1,5 +1,6 @@
 const { retrievePeeps, savePeep, deletePeepById } = require("../../src/queries/peepQueries");
 const knex = require('../../db/db');
+const { json } = require("express");
 
 beforeAll( async () => {
 	return knex.migrate.latest()
@@ -12,11 +13,18 @@ afterAll( async () => {
       .then(() => knex.destroy());
 })
 
-describe('getAllPeeps', () => {
+describe('retrievePeeps', () => {
     test("returns all users' handles and IDs as objects in an array", async () => {
         let result = await retrievePeeps()
-        expect(result[0].body).toEqual("test peep 1")
+        
         expect(result.length).toEqual(3)
+        expect(result[0].id).toEqual(3)
+        expect(result[2].id).toEqual(1)
+        expect(result[2].body).toEqual("test peep 1")
+        expect(result[2].likes.length).toEqual(1)
+        expect(result[2].likes[0].user_id).toEqual(3)
+        expect(result.length).toEqual(3)
+        expect(result[2].likes.length).toEqual(1)
     })
 })
 
@@ -26,7 +34,8 @@ describe('savePeep', () => {
         await savePeep(mockPeepObj)
         const result = await retrievePeeps()
         expect(result.length).toEqual(4)
-        expect(result[3].body).toEqual("creating a new test peep")
+        expect(result[0].body).toEqual("creating a new test peep")
+        expect(result[0].likes).toEqual(null)
     })
 })
 
