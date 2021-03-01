@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const verify = (req, res, next) => {
-    
+
     let accessToken = req.headers.authorization
 
     if (!accessToken){
@@ -10,6 +10,7 @@ const verify = (req, res, next) => {
 
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, function(err, decoded) {
         if(err){
+            console.error(err)
             return res.status(401).json({status: "error:", message: 'Unauthorized Access!'})
         }else{
             next()
