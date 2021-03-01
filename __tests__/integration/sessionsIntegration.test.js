@@ -23,7 +23,7 @@ describe("POST /sessions", () => {
         .send(userData)
         .expect(200)
         .then((response) => {
-            expect(response.body).toHaveProperty("accessToken")
+            expect(response.body).toHaveProperty("token")
          })
     })
     test("when user info is missing it returns 401 status and message: 'No user by that name'", async () => {
