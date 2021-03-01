@@ -39,7 +39,8 @@ const createNewSession = async (req, res) => {
               
                storeAuthToken(handle, refreshToken)
                
-               res.status(200).json({accessToken})
+               res.status(200)
+                  .json({token: accessToken, user_id: dbUser.id})
             }
          })
     } catch (error) {
