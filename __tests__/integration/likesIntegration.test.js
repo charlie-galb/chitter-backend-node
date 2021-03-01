@@ -22,7 +22,7 @@ const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {algorithm: "HS
 describe("PUT /peeps/1/likes/3", () => {
     test("if request is good, returns 200 status and newly created like", async () => {
         await request(app)
-        .put("/peeps/1/likes/3")
+        .put("/peeps/3/likes/1")
         .set('authorization', token)
         .expect(200)
         .then((response) => {
