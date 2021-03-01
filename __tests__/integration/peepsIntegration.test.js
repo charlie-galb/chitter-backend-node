@@ -27,7 +27,7 @@ describe("GET /peeps", () => {
         .expect(200)
         .then((response) => {
             expect(response.body.length).toEqual(3)
-            expect(response.body[0].body).toEqual("test peep 1")
+            expect(response.body[0].body).toEqual("test peep 3")
          })
     })
     test("if no auth token, returns 403 status and error message", async () => {
