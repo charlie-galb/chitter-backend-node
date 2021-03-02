@@ -1,6 +1,6 @@
-const pg = require('pg');
+const pg = require('pg')
 
-if (process.env.NODE_ENV === "production") pg.defaults.ssl = { rejectUnauthorized: false };
+if (process.env.NODE_ENV === 'production') pg.defaults.ssl = { rejectUnauthorized: false }
 
 module.exports = {
 
@@ -10,7 +10,7 @@ module.exports = {
       database: 'chitter_dev',
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      user:      process.env.DB_USER,
+      user: process.env.DB_USER,
       password: process.env.DB_USER_PASSWORD
     },
     pool: {
@@ -32,7 +32,7 @@ module.exports = {
       database: 'chitter_test',
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
-      user:      process.env.DB_USER,
+      user: process.env.DB_USER,
       password: process.env.DB_USER_PASSWORD
     },
     pool: {
@@ -57,7 +57,7 @@ module.exports = {
     seeds: {
       directory: './db/seeds/production'
     },
-    useNullAsDefault: true,
+    useNullAsDefault: true
   }
 
-};
+}
