@@ -10,6 +10,8 @@ It is deployed at `https://chitter-backend-node.herokuapp.com/`
 - Postgres
 - Jest
 - Supertest
+- Knex
+- ESLint
 
 ## Models and Diagrams  
 
