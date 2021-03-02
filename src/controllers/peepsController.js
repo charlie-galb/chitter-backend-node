@@ -10,6 +10,7 @@ const getAllPeeps = async (req, res) => {
                 peep.likes = peep.likes
             }
         })
+        console.log(allPeeps)
         res.status(200).json(allPeeps)
     } catch (error) {
         console.error(error)
