@@ -13,18 +13,14 @@ const createNewSession = async (req, res) => {
     const dbUser = await findUserByHandle(handle)
 
     if (dbUser === undefined) {
-      return res.status(401).json({
-        error: 'No user by that name'
-      })
+      return res.status(401).send('No user by that name')
     }
 
     return bcrypt
       .compare(password, dbUser.password)
       .then(isAuthenticated => {
         if (!isAuthenticated) {
-          res.status(401).json({
-            error: 'Unauthorized Access!'
-          })
+          res.status(401).send('Unauthorized Access!')
         } else {
           const payload = { handle: handle }
           const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
@@ -43,7 +39,7 @@ const createNewSession = async (req, res) => {
         }
       })
   } catch (error) {
-    return res.status(500).json({ status: 'error:', message: 'Internal Server Error' })
+    return res.status(500).send('Internal Server Error')
   }
 }
 
