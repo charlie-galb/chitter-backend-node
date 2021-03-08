@@ -33,7 +33,7 @@ describe('POST /sessions', () => {
       .send(invalidUserDataOne)
       .expect(401)
       .then((response) => {
-        expect(response.body.error).toEqual('No user by that name')
+        expect(response.text).toEqual('No user by that name')
       })
   })
   test("when user does not match the db it returns 401 status and message: 'Unauthorized Access!'", async () => {
@@ -43,7 +43,7 @@ describe('POST /sessions', () => {
       .send(invalidUserDataTwo)
       .expect(401)
       .then((response) => {
-        expect(response.body.error).toEqual('Unauthorized Access!')
+        expect(response.text).toEqual('Unauthorized Access!')
       })
   })
 })
