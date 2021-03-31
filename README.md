@@ -25,12 +25,12 @@ Users can...
 
 ### Sessions
 
-- POST `/sessions'  
+- POST `/sessions`  
 
 ### Peeps  
 
-- POST '/peeps'
-- GET '/peeps'
+- POST `/peeps`
+- GET `/peeps`
 - DELETE `/peeps/:id`
 
 ### Likes  
